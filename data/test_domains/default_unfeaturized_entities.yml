@@ -11,6 +11,8 @@ entities:
  - name
  - unrelated_recognized_entity
  - other
+ - never_used_entity:
+    influence_conversation: false
 
 responses:
   utter_greet:
