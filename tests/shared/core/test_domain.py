@@ -918,7 +918,7 @@ def test_transform_intents_for_file_default():
     transformed = domain._transform_intents_for_file()
 
     expected = [
-        {"greet": {USE_ENTITIES_KEY: ["name"]}},
+        {"greet": {USE_ENTITIES_KEY: ["name", "another_one"]}},
         {"default": {IGNORE_ENTITIES_KEY: ["unrelated_recognized_entity", "never_used_entity"]}},
         {"goodbye": {USE_ENTITIES_KEY: []}},
         {"thank": {USE_ENTITIES_KEY: []}},
