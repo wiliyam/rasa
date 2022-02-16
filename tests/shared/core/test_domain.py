@@ -711,10 +711,14 @@ def test_collect_intent_properties(
     default_ignored_entities: List[Text],
     intent_properties: Dict[Text, Dict[Text, Union[bool, List]]],
 ):
-    Domain._add_default_intents(intent_properties, entities, roles, groups, default_ignored_entities)
+    Domain._add_default_intents(
+        intent_properties, entities, roles, groups, default_ignored_entities
+    )
 
     assert (
-        Domain.collect_intent_properties(intents, entities, roles, groups, default_ignored_entities)
+        Domain.collect_intent_properties(
+            intents, entities, roles, groups, default_ignored_entities
+        )
         == intent_properties
     )
 
@@ -987,14 +991,27 @@ def test_clean_domain_for_file():
     expected = {
         "intents": [
             {"greet": {USE_ENTITIES_KEY: ["name", "used_entity"]}},
-            {"default": {IGNORE_ENTITIES_KEY: ["unrelated_recognized_entity", "unused_entity"]}},
+            {
+                "default": {
+                    IGNORE_ENTITIES_KEY: [
+                        "unrelated_recognized_entity",
+                        "unused_entity",
+                    ]
+                }
+            },
             {"goodbye": {USE_ENTITIES_KEY: []}},
             {"thank": {USE_ENTITIES_KEY: []}},
             {"ask": {IGNORE_ENTITIES_KEY: ["unused_entity"]}},
             {"why": {USE_ENTITIES_KEY: []}},
             {"pure_intent": {IGNORE_ENTITIES_KEY: ["unused_entity"]}},
         ],
-        "entities": ["name", "unrelated_recognized_entity", "other", "used_entity", "unused_entity"],
+        "entities": [
+            "name",
+            "unrelated_recognized_entity",
+            "other",
+            "used_entity",
+            "unused_entity",
+        ],
         "responses": {
             "utter_greet": [{"text": "hey there!"}],
             "utter_goodbye": [{"text": "goodbye :("}],
