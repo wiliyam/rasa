@@ -589,13 +589,14 @@ def test_merge_domain_with_forms():
 
 
 @pytest.mark.parametrize(
-    "intents, entities, roles, groups, intent_properties",
+    "intents, entities, roles, groups, default_ignored_entities, intent_properties",
     [
         (
             ["greet", "goodbye"],
             ["entity", "other", "third"],
             {"entity": ["role-1", "role-2"]},
             {},
+            [],
             {
                 "greet": {
                     USED_ENTITIES_KEY: [
@@ -622,6 +623,7 @@ def test_merge_domain_with_forms():
             ["entity", "other", "third"],
             {},
             {"other": ["1", "2"]},
+            [],
             {
                 "greet": {USED_ENTITIES_KEY: []},
                 "goodbye": {
@@ -649,6 +651,7 @@ def test_merge_domain_with_forms():
             ["entity", "other", "third"],
             {"entity": ["role"], "other": ["role"]},
             {},
+            [],
             {
                 "greet": {
                     "triggers": "utter_goodbye",
@@ -676,6 +679,7 @@ def test_merge_domain_with_forms():
             ["entity", "other", "third"],
             {},
             {},
+            [],
             {
                 "greet": {USED_ENTITIES_KEY: [], "triggers": "utter_goodbye"},
                 "goodbye": {USED_ENTITIES_KEY: []},
@@ -690,6 +694,7 @@ def test_merge_domain_with_forms():
             ["entity", "other", "third"],
             {},
             {},
+            [],
             {
                 "greet": {USED_ENTITIES_KEY: ["entity", "other", "third"]},
                 "goodbye": {USED_ENTITIES_KEY: ["entity", "other", "third"]},
@@ -703,12 +708,13 @@ def test_collect_intent_properties(
     entities: List[Text],
     roles: Dict[Text, List[Text]],
     groups: Dict[Text, List[Text]],
+    default_ignored_entities: List[Text],
     intent_properties: Dict[Text, Dict[Text, Union[bool, List]]],
 ):
-    Domain._add_default_intents(intent_properties, entities, roles, groups)
+    Domain._add_default_intents(intent_properties, entities, roles, groups, default_ignored_entities)
 
     assert (
-        Domain.collect_intent_properties(intents, entities, roles, groups)
+        Domain.collect_intent_properties(intents, entities, roles, groups, default_ignored_entities)
         == intent_properties
     )
 
@@ -918,20 +924,20 @@ def test_transform_intents_for_file_default():
     transformed = domain._transform_intents_for_file()
 
     expected = [
-        {"greet": {USE_ENTITIES_KEY: ["name", "another_one"]}},
+        {"greet": {USE_ENTITIES_KEY: ["name", "used_entity"]}},
         {
             "default": {
                 IGNORE_ENTITIES_KEY: [
                     "unrelated_recognized_entity",
-                    "never_used_entity",
+                    "unused_entity",
                 ]
             }
         },
         {"goodbye": {USE_ENTITIES_KEY: []}},
         {"thank": {USE_ENTITIES_KEY: []}},
-        {"ask": {IGNORE_ENTITIES_KEY: ["never_used_entity"]}},
+        {"ask": {IGNORE_ENTITIES_KEY: ["unused_entity"]}},
         {"why": {USE_ENTITIES_KEY: []}},
-        {"pure_intent": {IGNORE_ENTITIES_KEY: ["never_used_entity"]}},
+        {"pure_intent": {IGNORE_ENTITIES_KEY: ["unused_entity"]}},
     ]
 
     assert transformed == expected
@@ -980,15 +986,15 @@ def test_clean_domain_for_file():
 
     expected = {
         "intents": [
-            {"greet": {USE_ENTITIES_KEY: ["name"]}},
-            {"default": {IGNORE_ENTITIES_KEY: ["unrelated_recognized_entity"]}},
+            {"greet": {USE_ENTITIES_KEY: ["name", "used_entity"]}},
+            {"default": {IGNORE_ENTITIES_KEY: ["unrelated_recognized_entity", "unused_entity"]}},
             {"goodbye": {USE_ENTITIES_KEY: []}},
             {"thank": {USE_ENTITIES_KEY: []}},
-            "ask",
+            {"ask": {IGNORE_ENTITIES_KEY: ["unused_entity"]}},
             {"why": {USE_ENTITIES_KEY: []}},
-            "pure_intent",
+            {"pure_intent": {IGNORE_ENTITIES_KEY: ["unused_entity"]}},
         ],
-        "entities": ["name", "unrelated_recognized_entity", "other"],
+        "entities": ["name", "unrelated_recognized_entity", "other", "used_entity", "unused_entity"],
         "responses": {
             "utter_greet": [{"text": "hey there!"}],
             "utter_goodbye": [{"text": "goodbye :("}],

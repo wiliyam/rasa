@@ -1396,9 +1396,9 @@ class Domain:
             if len(use_entities) == len(self.entities):
                 intent_props[USE_ENTITIES_KEY] = True
             elif len(use_entities) <= len(self.entities) / 2:
-                intent_props[USE_ENTITIES_KEY] = list(use_entities)
+                intent_props[USE_ENTITIES_KEY] = sorted(list(use_entities))
             else:
-                intent_props[IGNORE_ENTITIES_KEY] = list(ignore_entities)
+                intent_props[IGNORE_ENTITIES_KEY] = sorted(list(ignore_entities))
             intent_props.pop(USED_ENTITIES_KEY)
             intents_for_file.append({intent_name: intent_props})
 
