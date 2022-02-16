@@ -31,6 +31,7 @@ from rasa.shared.nlu.constants import (
     ENTITY_ATTRIBUTE_END,
     ENTITY_ATTRIBUTE_TYPE,
     ENTITY_ATTRIBUTE_TEXT,
+    LATEST_TRAINING_DATA_FORMAT_VERSION,
 )
 
 
@@ -382,8 +383,8 @@ def test_write_classification_errors():
     assert (
         dump.strip()
         == textwrap.dedent(
-            """
-        version: "3.0"
+            f"""
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
         stories:
         - story: default
           steps:
