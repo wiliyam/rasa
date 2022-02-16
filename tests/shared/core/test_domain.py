@@ -919,7 +919,14 @@ def test_transform_intents_for_file_default():
 
     expected = [
         {"greet": {USE_ENTITIES_KEY: ["name", "another_one"]}},
-        {"default": {IGNORE_ENTITIES_KEY: ["unrelated_recognized_entity", "never_used_entity"]}},
+        {
+            "default": {
+                IGNORE_ENTITIES_KEY: [
+                    "unrelated_recognized_entity",
+                    "never_used_entity",
+                ]
+            }
+        },
         {"goodbye": {USE_ENTITIES_KEY: []}},
         {"thank": {USE_ENTITIES_KEY: []}},
         {"ask": {IGNORE_ENTITIES_KEY: ["never_used_entity"]}},

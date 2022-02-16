@@ -337,7 +337,7 @@ class Domain:
         entities: List[Text],
         roles: Dict[Text, List[Text]],
         groups: Dict[Text, List[Text]],
-        default_ignored_entities: List[Text]
+        default_ignored_entities: List[Text],
     ) -> Dict[Text, Any]:
         """Transforms the intent's parameters in a format suitable for internal use.
 
@@ -438,7 +438,7 @@ class Domain:
     @classmethod
     def collect_entity_properties(
         cls, domain_entities: List[Union[Text, Dict[Text, Any]]]
-    ) -> Tuple[List[Text], Dict[Text, List[Text]], Dict[Text, List[Text]]]:
+    ) -> Tuple[List[Text], Dict[Text, List[Text]], Dict[Text, List[Text]], List[Text]]:
         """Get entity properties for a domain from what is provided by a domain file.
 
         Args:
@@ -464,7 +464,10 @@ class Domain:
                             roles[_entity] = sub_labels[ENTITY_ROLES_KEY]
                         if ENTITY_GROUPS_KEY in sub_labels:
                             groups[_entity] = sub_labels[ENTITY_GROUPS_KEY]
-                        if ENTITY_FEATURIZATION_KEY in sub_labels and sub_labels[ENTITY_FEATURIZATION_KEY] is False:
+                        if (
+                            ENTITY_FEATURIZATION_KEY in sub_labels
+                            and sub_labels[ENTITY_FEATURIZATION_KEY] is False
+                        ):
                             default_ignored_entities.append(_entity)
                     else:
                         raise InvalidDomain(
@@ -503,7 +506,7 @@ class Domain:
             entities: All entities as provided by a domain file.
             roles: The roles of entities as provided by a domain file.
             groups: The groups of entities as provided by a domain file.
-            default_ignored_entities: Entities which have `influence_conversation` set to `False` in a domain file.
+            default_ignored_entities: Entities which do not influence the conversation.
 
         Returns:
             The intent properties to be stored in the domain.
@@ -530,7 +533,9 @@ class Domain:
                 f"Either rename or remove the duplicate ones."
             )
 
-        cls._add_default_intents(intent_properties, entities, roles, groups, default_ignored_entities)
+        cls._add_default_intents(
+            intent_properties, entities, roles, groups, default_ignored_entities
+        )
 
         return intent_properties
 
@@ -538,14 +543,19 @@ class Domain:
     def _intent_properties(
         cls,
         intent: Union[Text, Dict[Text, Any]],
-        entities: Union[Text, Dict[Text, Any]],
+        entities: List[Text],
         roles: Dict[Text, List[Text]],
         groups: Dict[Text, List[Text]],
-        default_ignored_entities: List[Text]
+        default_ignored_entities: List[Text],
     ) -> Tuple[Text, Dict[Text, Any]]:
         if not isinstance(intent, dict):
             intent_name = intent
-            intent = {intent_name: {USE_ENTITIES_KEY: True, IGNORE_ENTITIES_KEY: default_ignored_entities}}
+            intent = {
+                intent_name: {
+                    USE_ENTITIES_KEY: True,
+                    IGNORE_ENTITIES_KEY: default_ignored_entities,
+                }
+            }
         else:
             intent_name = list(intent.keys())[0]
 
@@ -563,7 +573,7 @@ class Domain:
         entities: List[Text],
         roles: Optional[Dict[Text, List[Text]]],
         groups: Optional[Dict[Text, List[Text]]],
-        default_ignored_entities: List[Text]
+        default_ignored_entities: List[Text],
     ) -> None:
         for intent_name in rasa.shared.core.constants.DEFAULT_INTENTS:
             if intent_name not in intent_properties:
@@ -600,11 +610,18 @@ class Domain:
             session_config: Configuration for conversation sessions. Conversations are
                 restarted at the end of a session.
         """
-        self.entities, self.roles, self.groups, self.default_entity_featurization = self.collect_entity_properties(
-            entities
-        )
+        (
+            self.entities,
+            self.roles,
+            self.groups,
+            self.default_entity_featurization,
+        ) = self.collect_entity_properties(entities)
         self.intent_properties = self.collect_intent_properties(
-            intents, self.entities, self.roles, self.groups, self.default_entity_featurization
+            intents,
+            self.entities,
+            self.roles,
+            self.groups,
+            self.default_entity_featurization,
         )
         self.overridden_default_intents = self._collect_overridden_default_intents(
             intents
@@ -1367,8 +1384,7 @@ class Domain:
             ):
                 # Default intents should be not dumped with the domain
                 continue
-            # `use_entities`, `ignore_entities`, and `influence_conversation` on entities
-            # in the domain file do not consider
+            # `use_entities`, `ignore_entities`, in the domain file do not consider
             # the role and group labels remove them from the list to make sure to not
             # put them into the domain file
             use_entities = set(
