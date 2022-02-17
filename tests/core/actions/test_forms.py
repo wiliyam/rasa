@@ -726,7 +726,7 @@ def test_temporary_tracker():
     sender_id = "test"
     domain = Domain.from_yaml(
         f"""
-        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
         slots:
           {extra_slot}:
             type: any
@@ -1412,7 +1412,7 @@ async def test_extract_other_slots_with_matched_mapping_conditions():
     domain = Domain.from_yaml(
         textwrap.dedent(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             intent:
             - greet
             - inform
@@ -1484,7 +1484,7 @@ async def test_extract_other_slots_raises_no_matched_conditions():
     domain = Domain.from_yaml(
         textwrap.dedent(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             intent:
             - greet
             - inform
@@ -1618,7 +1618,7 @@ async def test_form_slots_empty_with_restart():
     domain = Domain.from_yaml(
         textwrap.dedent(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             intent:
             - greet
             - inform

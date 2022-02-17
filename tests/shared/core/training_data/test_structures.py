@@ -41,7 +41,7 @@ def test_session_start_is_not_serialised(domain: Domain):
         Story.from_events(tracker.events, "some-story01").story_steps
     )
 
-    expected = """version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+    expected = """version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
 stories:
 - story: some-story01
   steps:

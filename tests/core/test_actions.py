@@ -1151,7 +1151,7 @@ async def test_action_extract_slots_predefined_mappings(
     domain = Domain.from_yaml(
         textwrap.dedent(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             intents:
             - inform
             - greet
@@ -1234,7 +1234,7 @@ async def test_action_extract_slots_with_from_trigger_mappings():
     domain = Domain.from_yaml(
         textwrap.dedent(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             intents:
             - greet
             - inform
@@ -1453,7 +1453,7 @@ async def test_action_extract_slots_with_matched_mapping_condition():
     domain = Domain.from_yaml(
         textwrap.dedent(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             intent:
             - greet
             - inform
@@ -1506,7 +1506,7 @@ async def test_action_extract_slots_no_matched_mapping_conditions():
     domain = Domain.from_yaml(
         textwrap.dedent(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             intent:
             - greet
             - inform

@@ -400,13 +400,13 @@ async def test_warning_if_intent_not_in_domain(domain: Domain):
 
 
 async def test_no_warning_if_intent_in_domain(domain: Domain):
-    stories = (
-        f'version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"\n'
-        f"stories:\n"
-        f"- story: I am fine 💥\n"
-        f"  steps:\n"
-        f"  - intent: greet"
-    )
+    stories = f"""
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
+        stories:
+        - story: I am fine 💥
+          steps:
+          - intent: greet
+        """
 
     reader = YAMLStoryReader(domain)
     yaml_content = rasa.shared.utils.io.read_yaml(stories)
@@ -455,14 +455,14 @@ def test_parsing_of_e2e_stories(domain: Domain):
 
 
 async def test_active_loop_is_parsed(domain: Domain):
-    stories = (
-        f'version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"\n'
-        f"stories:\n"
-        f"- story: name\n"
-        f"  steps:\n"
-        f"  - intent: greet\n"
-        f"  - active_loop: null"
-    )
+    stories = f"""
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
+        stories:
+        - story: name
+          steps:
+          - intent: greet
+          - active_loop: null
+        """
 
     reader = YAMLStoryReader(domain)
     yaml_content = rasa.shared.utils.io.read_yaml(stories)

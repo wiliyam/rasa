@@ -348,7 +348,7 @@ def test_domain_to_dict():
 
 def test_domain_to_yaml():
     test_yaml = f"""
-version: '3.0'
+version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
 actions:
 - action_save_world
 config:
@@ -876,8 +876,8 @@ def test_load_on_invalid_domain_duplicate_actions():
 def test_schema_error_with_forms_as_lists():
     with pytest.raises(YamlException):
         Domain.from_yaml(
-            """
-        version: '3.0'
+            f"""
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
         forms: []
         """
         )
@@ -1039,7 +1039,7 @@ def test_not_add_knowledge_base_slots():
 def test_add_knowledge_base_slots():
     test_domain = Domain.from_yaml(
         f"""
-        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
         actions:
         - {DEFAULT_KNOWLEDGE_BASE_ACTION}
         """
@@ -1357,7 +1357,7 @@ def test_form_invalid_required_slots_raises():
     with pytest.raises(YamlValidationException):
         Domain.from_yaml(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             entities:
             - some_entity
             forms:
@@ -1674,7 +1674,7 @@ def test_domain_with_empty_required_slots():
     with pytest.raises(YamlException):
         Domain.from_yaml(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             forms:
               contract_form:
             """
@@ -1783,7 +1783,7 @@ def test_domain_slots_for_entities_with_mapping_conditions_no_slot_set():
     domain = Domain.from_yaml(
         textwrap.dedent(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             entities:
             - city
             slots:
@@ -1810,7 +1810,7 @@ def test_domain_slots_for_entities_sets_valid_slot():
     domain = Domain.from_yaml(
         textwrap.dedent(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             entities:
             - city
             slots:
@@ -1831,7 +1831,7 @@ def test_domain_slots_for_entities_sets_valid_list_slot():
     domain = Domain.from_yaml(
         textwrap.dedent(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             entities:
             - topping
             slots:

@@ -438,7 +438,7 @@ def test_valid_stories_rules_actions_in_domain(
     file_name = tmp_path / f"{file_name}.yml"
     file_name.write_text(
         f"""
-        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
         {file_name}:
         - {data_type}: test path
           steps:
@@ -468,7 +468,7 @@ def test_valid_stories_rules_default_actions(
     file_name = tmp_path / f"{file_name}.yml"
     file_name.write_text(
         f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             {file_name}:
             - {data_type}: test path
               steps:
@@ -512,7 +512,7 @@ def test_verify_slot_mappings_mapping_active_loop_not_in_forms(tmp_path: Path):
     slot_name = "some_slot"
     domain.write_text(
         f"""
-        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
         entities:
         - some_entity
         slots:
@@ -548,7 +548,7 @@ def test_verify_slot_mappings_from_trigger_intent_mapping_slot_not_in_forms(
     slot_name = "started_booking_form"
     domain.write_text(
         f"""
-        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
         intents:
         - activate_booking
         entities:

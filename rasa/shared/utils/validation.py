@@ -236,7 +236,7 @@ def validate_training_data_format_version(
             f"The '{KEY_TRAINING_DATA_FORMAT_VERSION}' key is missing in "
             f"the training data file {filename}. "
             f"Rasa Open Source will read the file as a "
-            f"version '{LATEST_TRAINING_DATA_FORMAT_VERSION}' file. "
+            f"version {LATEST_TRAINING_DATA_FORMAT_VERSION} file. "
             f"See {DOCS_URL_TRAINING_DATA}."
         )
         return True
@@ -267,9 +267,9 @@ def validate_training_data_format_version(
             f"Training data file {filename} must specify "
             f"'{KEY_TRAINING_DATA_FORMAT_VERSION}' as string, for example:\n"
             f"{KEY_TRAINING_DATA_FORMAT_VERSION}: "
-            f"'{LATEST_TRAINING_DATA_FORMAT_VERSION}'\n"
+            f"{LATEST_TRAINING_DATA_FORMAT_VERSION}\n"
             f"Rasa Open Source will read the file as a "
-            f"version '{LATEST_TRAINING_DATA_FORMAT_VERSION}' file.",
+            f"version {LATEST_TRAINING_DATA_FORMAT_VERSION} file.",
             docs=DOCS_URL_TRAINING_DATA,
         )
         return True

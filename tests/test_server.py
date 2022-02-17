@@ -1934,7 +1934,7 @@ stories:
             ],
             None,
             True,
-            f"""version: "{rasa.shared.constants.LATEST_TRAINING_DATA_FORMAT_VERSION}"
+            f"""version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
 stories:
 - story: some-conversation-ID
   steps:
@@ -2038,7 +2038,7 @@ async def test_get_story_does_not_update_conversation_session(
     # expected story is returned
     assert (
         response.content.decode().strip()
-        == f"""version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+        == f"""version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
 stories:
 - story: some-conversation-ID
   steps:

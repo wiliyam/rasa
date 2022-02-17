@@ -420,46 +420,56 @@ def test_split_entities_by_comma(
     "text, warnings",
     [
         (
-            f'version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"\n'
-            "nlu:\n"
-            "- intent: test\n"
-            "  examples: |\n"
-            "    - I want to fly from [Berlin](location) to [ London](location)\n",
+            f"""
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
+            nlu:
+            - intent: test
+              examples: |
+                - I want to fly from [Berlin](location) to [ London](location)
+            """,
             1,
         ),
         (
-            f'version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"\n'
-            "nlu:\n"
-            "- intent: test\n"
-            "  examples: |\n"
-            "    - I want to fly from [Berlin ](location) to [London](location)\n",
+            f"""
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
+            nlu:
+            - intent: test
+              examples: |
+                - I want to fly from [Berlin ](location) to [London](location)
+            """,
             1,
         ),
         (
-            f'version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"\n'
-            "nlu:\n"
-            "- intent: test\n"
-            "  examples: |\n"
-            "    - I want to fly from [Berlin](location) to [London.](location)\n"
-            "    - I have nothing to say.\n",
+            f"""
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
+            nlu:
+            - intent: test
+              examples: |
+                - I want to fly from [Berlin](location) to [London.](location)
+                - I have nothing to say
+            """,
             1,
         ),
         (
-            f'version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"\n'
-            "nlu:\n"
-            "- intent: test\n"
-            "  examples: |\n"
-            "    - I have nothing to say.\n"
-            "    - I want to fly from [Berlin](location) to[San Fransisco](location)\n",
+            f"""
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
+            nlu:
+            - intent: test
+              examples: |
+                - I have nothing to say.
+                - I want to fly from [Berlin](location) to[San Fransisco](location)
+            """,
             1,
         ),
         (
-            f'version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"\n'
-            "nlu:\n"
-            "- intent: test\n"
-            "  examples: |\n"
-            "    - I want to fly from [Berlin](location) to[San Fransisco](location)\n"
-            "    - Book a flight from [London](location) to [Paris.](location)\n",
+            f"""
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
+            nlu:
+            - intent: test
+              examples: |
+                - I want to fly from [Berlin](location) to[San Fransisco](location)
+                - Book a flight from [London](location) to [Paris.](location)
+            """,
             2,
         ),
     ],

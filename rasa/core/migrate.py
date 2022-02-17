@@ -5,7 +5,11 @@ from typing import List, Dict, Text, Any, Tuple, Optional, Union
 
 import rasa.shared.utils.io
 import rasa.shared.utils.cli
-from rasa.shared.constants import REQUIRED_SLOTS_KEY, IGNORED_INTENTS
+from rasa.shared.constants import (
+    LATEST_TRAINING_DATA_FORMAT_VERSION,
+    REQUIRED_SLOTS_KEY,
+    IGNORED_INTENTS,
+)
 from rasa.shared.core.constants import (
     ACTIVE_LOOP,
     REQUESTED_SLOT,
@@ -164,7 +168,7 @@ def _assemble_new_domain(
         elif key == KEY_FORMS:
             new_domain.update({key: new_forms})
         elif key == "version":
-            new_domain.update({key: '"3.0"'})
+            new_domain.update({key: LATEST_TRAINING_DATA_FORMAT_VERSION})
         else:
             new_domain.update({key: value})
     return new_domain
@@ -198,7 +202,9 @@ def _migrate_domain_files(
 
         if KEY_SLOTS not in original_content and KEY_FORMS not in original_content:
             if isinstance(original_content, dict):
-                original_content.update({"version": '"3.0"'})
+                original_content.update(
+                    {"version": LATEST_TRAINING_DATA_FORMAT_VERSION}
+                )
 
             # this is done so that the other domain files can be moved
             # in the migrated directory

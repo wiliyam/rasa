@@ -227,7 +227,7 @@ class TestTEDPolicy(PolicyTestCollection):
         stories = tmp_path / "stories.yml"
         stories.write_text(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             stories:
             - story: test path
               steps:
