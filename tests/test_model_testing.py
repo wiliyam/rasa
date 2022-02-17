@@ -31,8 +31,8 @@ from rasa.shared.nlu.constants import (
     ENTITY_ATTRIBUTE_END,
     ENTITY_ATTRIBUTE_TYPE,
     ENTITY_ATTRIBUTE_TEXT,
-    LATEST_TRAINING_DATA_FORMAT_VERSION,
 )
+from rasa.shared.constants import LATEST_TRAINING_DATA_FORMAT_VERSION
 
 
 def monkeypatch_get_latest_model(tmp_path: Path, monkeypatch: MonkeyPatch) -> None:

@@ -106,7 +106,7 @@ def test_missing_slot_mappings_raises():
     with pytest.raises(YamlValidationException):
         Domain.from_yaml(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             slots:
               some_slot:
                 type: text
@@ -119,7 +119,7 @@ def test_slot_mappings_invalid_type_raises():
     with pytest.raises(YamlValidationException):
         Domain.from_yaml(
             f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             entities:
             - from_entity
             slots:

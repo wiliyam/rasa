@@ -157,7 +157,7 @@ def test_validate_files_action_not_found_invalid_domain(
     file_name = tmp_path / f"{file_type}.yml"
     file_name.write_text(
         f"""
-        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
         {file_type}:
         - {data_type}: test path
           steps:
@@ -184,7 +184,7 @@ def test_validate_files_form_not_found_invalid_domain(
     file_name = tmp_path / f"{file_type}.yml"
     file_name.write_text(
         f"""
-        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+        version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
         {file_type}:
         - {data_type}: test path
           steps:
@@ -291,7 +291,7 @@ def test_validate_files_invalid_slot_mappings(tmp_path: Path):
     slot_name = "started_booking_form"
     domain.write_text(
         f"""
-            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"'
+            version: "{LATEST_TRAINING_DATA_FORMAT_VERSION}"
             intents:
             - activate_booking
             entities:
