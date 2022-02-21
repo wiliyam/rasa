@@ -85,6 +85,7 @@ class KafkaEventBroker(EventBroker):
         self.ssl_keyfile = ssl_keyfile
         self.ssl_check_hostname = ssl_check_hostname
         self.botId = kwargs.get("botId")
+        self.userId = kwargs.get("userId")
 
     @classmethod
     async def from_endpoint_config(
@@ -114,7 +115,9 @@ class KafkaEventBroker(EventBroker):
                 logger.debug("Failed to connect kafka.")
                 return
         event["botId"] = self.botId
-        print("event -----------------------------------::",event)
+        event["userId"] = self.userId
+        if event["event"] != "bot" or event["event"] != "user":
+            return
         while retries:
             try:
                 self._publish(event)
