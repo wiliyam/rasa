@@ -116,6 +116,7 @@ class KafkaEventBroker(EventBroker):
                 return
         event["botId"] = self.botId
         event["userId"] = self.userId
+        print("event--------------------------->>>",event["event"])
         if event["event"] != "bot" or event["event"] != "user":
             return
         while retries:
