@@ -116,8 +116,6 @@ class KafkaEventBroker(EventBroker):
                 return
         event["botId"] = self.botId
         event["userId"] = self.userId
-        if event["event"] not in ["bot","user"]:
-            return
         while retries:
             try:
                 self._publish(event)
