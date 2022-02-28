@@ -86,6 +86,7 @@ class KafkaEventBroker(EventBroker):
         self.ssl_check_hostname = ssl_check_hostname
         self.botId = kwargs.get("botId")
         self.userId = kwargs.get("userId")
+        self.botAvatar = kwargs.get('botAvatar')
 
     @classmethod
     async def from_endpoint_config(
@@ -116,6 +117,7 @@ class KafkaEventBroker(EventBroker):
                 return
         event["botId"] = self.botId
         event["userId"] = self.userId
+        event["botAvatar"] = self.botAvatar
         while retries:
             try:
                 self._publish(event)
